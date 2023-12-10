@@ -1,0 +1,15 @@
+{
+    "characterERC721": "0x3dea0cd0c38e354dc8797299f373f0471ea431e6",
+    "WeaponERC721": "0x22cfdcd1c9aaa37240ae72db5cfdbee1f3f0fdf6",
+    "tokenBoundAccountImplement": "0xeefedb031ed03dd88553946b8a74684d538d7d94",
+    "tokenBoundAccountRegistry": "0x0303a0eafc7f09e6c915edbb739d2e9507748ce3",
+    "GOLDERC20": "0xa2cf009b28a352b6e40b7fec87bd6c28a9133e52",
+    "SILVERERC20": "0x018fae129a5f6ad10daa9fe1172dd358148a0e36",
+    "NFT_CONTRACT_ADDRESS": "0x7fbac9d3b38375be3cd3ecf9701f4bd3349dd392",
+    "wBNB_ADDRESS": "0xefa11f1dc4ef87aca3027cb458b64bf8c0344e1c",
+    "LENDING_POOL_ADDRESS": "0x18d1b265ad688b09a593ce795b2e51cef8f41906",
+    "LOAN_ADDRESS": "0x95fcdc7076ca3711241352085f8794e79aa9f2ad",
+    "LiquidateNFTPool": "0x1db51fec2c8f28818364d7906a19dc8556d49a4b",
+    "permittedNFTs": "0x43e73cd24fa3bedd8b62d50890cefb921c57887c",
+    "MARKETPLACE": "0x41ecdc55d620434056c8d94b84b6e4d655893517"
+}
