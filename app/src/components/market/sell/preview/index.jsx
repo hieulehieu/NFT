@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { CHAIN_ID, DEFAULT_NO_IMAGE, MARKETPLACE_ADDRESS, wBNB_ADDRESS } from '@src/constants';
+import { CHAIN_ID, DEFAULT_NO_IMAGE, MARKETPLACE_ADDRESS } from '@src/constants';
 import { approveERC721, checkApproved, getNftMetadata, parseMetamaskError } from '@src/utils';
 import ReactLoading from 'react-loading';
 import styles from '../styles.module.scss';
@@ -117,7 +117,6 @@ export default function PreviewMarketItem({ marketItem, handleRefresh }) {
           timeSaleStart: new Date(marketItemParams.timeSaleStart).getTime() / 1000,
           timeSaleEnd: new Date(marketItemParams.timeSaleEnd).getTime() / 1000,
           salePrice: marketItemParams.salePrice == 0 ? 0 : ethers.utils.parseUnits(marketItemParams.salePrice, 18),
-          tokenFee: wBNB_ADDRESS,
           feeReceiver: account.address,
         },
       ]);

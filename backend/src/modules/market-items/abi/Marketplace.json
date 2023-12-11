@@ -1,11 +1,7 @@
 [
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_treasury",
-        "type": "address"
-      },
+      { "internalType": "address", "name": "_treasury", "type": "address" },
       {
         "internalType": "uint256",
         "name": "_royaltyPercent",
@@ -52,21 +48,9 @@
       },
       {
         "components": [
-          {
-            "internalType": "address",
-            "name": "nft",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tokenId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
-          },
+          { "internalType": "address", "name": "nft", "type": "address" },
+          { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+          { "internalType": "uint256", "name": "price", "type": "uint256" },
           {
             "internalType": "uint256",
             "name": "timeSaleStart",
@@ -77,19 +61,10 @@
             "name": "timeSaleEnd",
             "type": "uint256"
           },
-          {
-            "internalType": "uint256",
-            "name": "salePrice",
-            "type": "uint256"
-          },
+          { "internalType": "uint256", "name": "salePrice", "type": "uint256" },
           {
             "internalType": "address",
             "name": "feeReceiver",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "tokenFee",
             "type": "address"
           }
         ],
@@ -157,25 +132,6 @@
       }
     ],
     "name": "SetAdmin",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "oldDirectLoanOffer",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "newDirectLoanOffer",
-        "type": "address"
-      }
-    ],
-    "name": "SetDirectLoanOffer",
     "type": "event"
   },
   {
@@ -256,55 +212,27 @@
   {
     "inputs": [],
     "name": "HUNDRED_PERCENT",
-    "outputs": [
-      {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
-      }
-    ],
+    "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "MAX_BATCH_PURCHASE_ITEM",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "name": "admins",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_itemId",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_itemId", "type": "uint256" }
     ],
     "name": "closeItem",
     "outputs": [],
@@ -312,25 +240,8 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "directLoanOffer",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_itemId",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_itemId", "type": "uint256" }
     ],
     "name": "forceRemoveItem",
     "outputs": [],
@@ -339,20 +250,10 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "_account", "type": "address" }
     ],
     "name": "isAdmin",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -360,11 +261,7 @@
     "inputs": [],
     "name": "itemIds",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "_value",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_value", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -373,21 +270,9 @@
     "inputs": [
       {
         "components": [
-          {
-            "internalType": "address",
-            "name": "nft",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tokenId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
-          },
+          { "internalType": "address", "name": "nft", "type": "address" },
+          { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+          { "internalType": "uint256", "name": "price", "type": "uint256" },
           {
             "internalType": "uint256",
             "name": "timeSaleStart",
@@ -398,19 +283,10 @@
             "name": "timeSaleEnd",
             "type": "uint256"
           },
-          {
-            "internalType": "uint256",
-            "name": "salePrice",
-            "type": "uint256"
-          },
+          { "internalType": "uint256", "name": "salePrice", "type": "uint256" },
           {
             "internalType": "address",
             "name": "feeReceiver",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "tokenFee",
             "type": "address"
           }
         ],
@@ -425,142 +301,51 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "name": "marketItems",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "itemId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "nft",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "price",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "timeSaleStart",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "timeSaleEnd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "salePrice",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "seller",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "feeReceiver",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "tokenFee",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "buyer",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "timePurchased",
-        "type": "uint256"
-      },
-      {
-        "internalType": "enum ItemStatus",
-        "name": "status",
-        "type": "uint8"
-      }
+      { "internalType": "uint256", "name": "itemId", "type": "uint256" },
+      { "internalType": "address", "name": "nft", "type": "address" },
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+      { "internalType": "uint256", "name": "price", "type": "uint256" },
+      { "internalType": "uint256", "name": "timeSaleStart", "type": "uint256" },
+      { "internalType": "uint256", "name": "timeSaleEnd", "type": "uint256" },
+      { "internalType": "uint256", "name": "salePrice", "type": "uint256" },
+      { "internalType": "address", "name": "seller", "type": "address" },
+      { "internalType": "address", "name": "feeReceiver", "type": "address" },
+      { "internalType": "address", "name": "buyer", "type": "address" },
+      { "internalType": "uint256", "name": "timePurchased", "type": "uint256" },
+      { "internalType": "enum ItemStatus", "name": "status", "type": "uint8" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "bytes", "name": "", "type": "bytes" }
     ],
     "name": "onERC721Received",
-    "outputs": [
-      {
-        "internalType": "bytes4",
-        "name": "",
-        "type": "bytes4"
-      }
-    ],
+    "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
     "stateMutability": "pure",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "_itemIds",
-        "type": "uint256[]"
-      }
+      { "internalType": "uint256[]", "name": "_itemIds", "type": "uint256[]" }
     ],
     "name": "purchaseItems",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -573,28 +358,14 @@
   {
     "inputs": [],
     "name": "royaltyPercent",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "_allow",
-        "type": "bool"
-      }
+      { "internalType": "address", "name": "_user", "type": "address" },
+      { "internalType": "bool", "name": "_allow", "type": "bool" }
     ],
     "name": "setAdmin",
     "outputs": [],
@@ -603,31 +374,10 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "_users",
-        "type": "address[]"
-      },
-      {
-        "internalType": "bool",
-        "name": "_allow",
-        "type": "bool"
-      }
+      { "internalType": "address[]", "name": "_users", "type": "address[]" },
+      { "internalType": "bool", "name": "_allow", "type": "bool" }
     ],
     "name": "setAdmins",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_loanAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setDirectLoanOffer",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -647,11 +397,7 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_treasury",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "_treasury", "type": "address" }
     ],
     "name": "setTreasury",
     "outputs": [],
@@ -660,11 +406,7 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "newOwner", "type": "address" }
     ],
     "name": "transferOwnership",
     "outputs": [],
@@ -674,43 +416,21 @@
   {
     "inputs": [],
     "name": "treasury",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_itemId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_price",
-        "type": "uint256"
-      },
+      { "internalType": "uint256", "name": "_itemId", "type": "uint256" },
+      { "internalType": "uint256", "name": "_price", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "_timeSaleStart",
         "type": "uint256"
       },
-      {
-        "internalType": "uint256",
-        "name": "_timeSaleEnd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_salePrice",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_timeSaleEnd", "type": "uint256" },
+      { "internalType": "uint256", "name": "_salePrice", "type": "uint256" }
     ],
     "name": "updateItem",
     "outputs": [],

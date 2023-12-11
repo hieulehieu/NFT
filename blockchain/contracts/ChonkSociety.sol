@@ -18,8 +18,6 @@ contract ChonkSociety is ERC721URIStorage {
     /**
      * @notice base extension for metadata URI
      */
-    string public constant baseExtension = ".json";
-
     /**
      * @notice Token Id
      */
@@ -76,7 +74,7 @@ contract ChonkSociety is ERC721URIStorage {
      */
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        return string(abi.encodePacked(baseURI, tokenId.toString(), baseExtension));
+        return string(abi.encodePacked(baseURI, tokenId.toString()));
     }
 
     /**
@@ -107,12 +105,7 @@ contract ChonkSociety is ERC721URIStorage {
      *
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override {
+    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual override {
         if (from != address(0) && to != address(0)) {
             _tokensOfOwner[from].remove(firstTokenId);
             _tokensOfOwner[to].add(firstTokenId);

@@ -67,7 +67,6 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
             salePrice: _marketItemParams.salePrice,
             seller: _msgSender(),
             feeReceiver: _marketItemParams.feeReceiver,
-            tokenFee: _marketItemParams.tokenFee,
             buyer: address(0),
             timePurchased: 0,
             status: ItemStatus.OPENING
@@ -80,7 +79,6 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
         marketItems[_itemId].status = ItemStatus.SOLD;
         marketItems[_itemId].buyer = _msgSender();
         marketItems[_itemId].timePurchased = block.timestamp;
-        
 
         uint256 itemPrice = marketItems[_itemId].price;
         if (marketItems[_itemId].timeSaleStart <= block.timestamp && block.timestamp <= marketItems[_itemId].timeSaleEnd) {
@@ -92,7 +90,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
         Helper.safeTransferNative(marketItems[_itemId].feeReceiver, itemPrice - royaltyFee);
 
         IERC721(marketItems[_itemId].nft).transferFrom(address(this), _msgSender(), marketItems[_itemId].tokenId);
-        
+
         emit PurchasedItem(_itemId, _msgSender());
     }
 
@@ -112,7 +110,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
 
     function updateItem(uint256 _itemId, uint256 _price, uint256 _timeSaleStart, uint256 _timeSaleEnd, uint256 _salePrice) external onlySeller(_itemId) validMarketItem(_itemId) {
         require(_price > 0, "Invalid price");
-        if(_timeSaleStart > 0) {
+        if (_timeSaleStart > 0) {
             require(_timeSaleEnd > _timeSaleStart, "Invalid time sale");
             require(_salePrice > 0 && _salePrice < _price, "Invalid sale price");
         }

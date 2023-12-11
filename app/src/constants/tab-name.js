@@ -25,27 +25,6 @@ export const FOOTER_MENU = [
     ],
   },
   {
-    title: 'Lend',
-    items: [
-      {
-        title: 'Collateral',
-        link: '/lend/assets',
-      },
-      {
-        title: 'Loans',
-        link: '/lend/loans',
-      },
-      {
-        title: 'Offers sent',
-        link: '/lend/offers',
-      },
-      {
-        title: 'Requests received',
-        link: '/lend/requests',
-      },
-    ],
-  },
-  {
     title: 'Trade',
     items: [
       {

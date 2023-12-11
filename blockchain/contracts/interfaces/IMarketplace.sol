@@ -18,7 +18,6 @@ struct MarketItem {
     uint256 salePrice;
     address seller;
     address feeReceiver;
-    address tokenFee;
     address buyer;
     uint256 timePurchased;
     ItemStatus status;
@@ -32,7 +31,6 @@ struct MarketItemParams {
     uint256 timeSaleEnd;
     uint256 salePrice;
     address feeReceiver;
-    address tokenFee;
 }
 
 interface IMarketplace {

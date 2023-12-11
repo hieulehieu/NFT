@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 import SocialShare from './SocialShare';
 import { useState } from 'react';
 
-const BSC_SCAN = import.meta.env.VITE_BSC_SCAN;
+const MUMBAI_SCAN = import.meta.env.VITE_MUMBAI_SCAN;
 
 export default function Information({ marketItem }) {
   const [isOpenSocialShare, setIsOpenSocialShare] = useState(false);
@@ -19,7 +19,7 @@ export default function Information({ marketItem }) {
       </div>
       <div className={styles.owner}>
         Owned by{' '}
-        <Link to={`${BSC_SCAN}/address/${marketItem.owner}`} target="_blank">
+        <Link to={`${MUMBAI_SCAN}/address/${marketItem.owner}`} target="_blank">
           {sliceAddress(marketItem.owner)}
         </Link>
       </div>

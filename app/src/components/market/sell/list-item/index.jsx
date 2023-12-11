@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { getNfts } from '@src/api/nfts.api';
+import { getNFTsOfOwner } from '@src/utils';
 import Card from '@src/components/common/card';
 import { Pagination } from 'antd';
 import { useEffect, useRef, useState } from 'react';
@@ -16,6 +16,7 @@ export default function ListItem({ onClose, onClick }) {
   useOnClickOutside(ref, () => onClose());
 
   const [isLoading, setIsLoading] = useState(false);
+  const [allNfts, setAllNfts] = useState([]);
   const [listNFT, setListNFT] = useState({
     nfts: [],
     total: 0,
@@ -23,21 +24,16 @@ export default function ListItem({ onClose, onClick }) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handleOnCloseERC6551 = () => {
-    setSelectedTokenBoundAccount();
-  };
-
   const fetchNFTs = async () => {
     if (currentPage === 0) return;
     try {
       setIsLoading(true);
-      const { data } = await getNfts({
-        page: currentPage,
-        owner: account.address,
-        size: 5,
-        isAvailable: 1,
+      const { data } = await getNFTsOfOwner(account.address);
+      setAllNfts(data);
+      setListNFT({
+        total: data.length,
+        nfts: data.slice(0, 5),
       });
-      setListNFT(data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -56,7 +52,14 @@ export default function ListItem({ onClose, onClick }) {
 
   useEffect(() => {
     fetchNFTs();
-  }, [account.address, currentPage]);
+  }, [account.address]);
+
+  useEffect(() => {
+    setListNFT({
+      ...listNFT,
+      nfts: allNfts.slice((currentPage - 1) * 5, Number(currentPage) * 5),
+    });
+  }, [currentPage]);
 
   return (
     <div className={styles.container}>

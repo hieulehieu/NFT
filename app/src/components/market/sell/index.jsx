@@ -34,7 +34,7 @@ const MarketplaceSellNft = () => {
           <img src={bnbTokenIcon} alt="BNB Token Icon" />
           <div className={styles['badge-info']}>
             <div>{sliceAddress(account.address)}</div>
-            <div>BSC Testnet</div>
+            <div>Mumbai Testnet</div>
           </div>
         </div>
         <div className={styles['input-wrap']}>

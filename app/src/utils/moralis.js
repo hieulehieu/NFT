@@ -9,7 +9,7 @@ const headers = {
   'X-API-Key': MORALIS_API_KEY,
 };
 
-export const getNFTsOfOwner = async (owner, chainId = CHAIN_ID) => {
+export const getNFTsOfOwner = async (owner, params = {}, chainId = CHAIN_ID) => {
   const url = `${MORALIS_API_URL}/${owner}/nft`;
   const options = {
     method: 'GET',
@@ -18,6 +18,7 @@ export const getNFTsOfOwner = async (owner, chainId = CHAIN_ID) => {
       chain: '0x' + Number(chainId).toString(16),
       media_items: true,
       format: 'decimal',
+      ...params,
     },
     headers,
   };

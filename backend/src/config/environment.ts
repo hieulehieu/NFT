@@ -17,7 +17,6 @@ export default () => {
     REDIS_BLOCK_DB: Number(process.env.REDIS_BLOCK_DB),
 
     // Web3 host
-    wBNB_ADDRESS: process.env.WBNB_ADDRESS,
     MARKETPLACE_ADDRESS: process.env.MARKETPLACE_ADDRESS,
     CHAIN_ID: process.env.CHAIN_ID,
 

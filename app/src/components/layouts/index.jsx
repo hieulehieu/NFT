@@ -2,7 +2,7 @@ import { CHAIN_ID, RPC_URL } from '@src/constants';
 import { setAccount } from '@src/redux/features/accountSlice';
 import { setCarts } from '@src/redux/features/cartSlice';
 import { getCarts } from '@src/api/cart.api';
-import { getBalance } from '@src/utils/contracts/erc20';
+import { getNativeBalance } from '@src/utils';
 import { Layout } from 'antd';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
@@ -27,10 +27,11 @@ export default function UserLayout() {
       console.log('Please connect to MetaMask.');
     } else {
       if (network == CHAIN_ID) {
+        const balance = await getNativeBalance(accounts[0]);
         dispatch(
           setAccount({
             address: accounts[0].toLowerCase(),
-            balance: 0,
+            balance: balance,
             currency: 'wBNB',
           })
         );

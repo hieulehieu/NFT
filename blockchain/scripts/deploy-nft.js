@@ -5,25 +5,25 @@ async function main() {
     const accounts = await ethers.getSigners();
 
     //* Loading contract factory */
-    const Marketplace = await ethers.getContractFactory("Marketplace");
+    const ChonkSociety = await ethers.getContractFactory("ChonkSociety");
 
     // //* Deploy contracts */
     console.log("==========================================================================");
     console.log("DEPLOYING CONTRACTS");
     console.log("==========================================================================");
-    const treasury = "0xcCbaead41F6adfA1F0C773dB8A4ae7D088d55c80";
-    const marketPercent = 250;
-    const marketplace = await Marketplace.deploy(treasury, marketPercent);
-    console.log("Marketplace                        deployed to:>>", marketplace.address.toLowerCase());
-    await marketplace.deployed();
+    const chonk = await ChonkSociety.deploy("https://ipfs.io/ipfs/QmWXJXRdExse2YHRY21Wvh4pjRxNRQcWVhcKw4DLVnqGqs/");
+    console.log("chonk                        deployed to:>>", chonk.address.toLowerCase());
+    await chonk.deployed();
+
+    await chonk.connect(accounts[0]).mint(accounts[0].address, 13);
 
     console.log("==========================================================================");
     console.log("VERIFY");
     console.log("==========================================================================");
 
     await run("verify:verify", {
-        address: marketplace.address,
-        constructorArguments: [treasury, marketPercent],
+        address: chonk.address,
+        constructorArguments: ["https://ipfs.io/ipfs/QmWXJXRdExse2YHRY21Wvh4pjRxNRQcWVhcKw4DLVnqGqs/"],
     });
 
     console.log("==========================================================================");
