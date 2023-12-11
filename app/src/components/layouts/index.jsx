@@ -27,11 +27,10 @@ export default function UserLayout() {
       console.log('Please connect to MetaMask.');
     } else {
       if (network == CHAIN_ID) {
-        const balance = await getBalance(accounts[0]);
         dispatch(
           setAccount({
             address: accounts[0].toLowerCase(),
-            balance: balance,
+            balance: 0,
             currency: 'wBNB',
           })
         );
@@ -43,7 +42,7 @@ export default function UserLayout() {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x61' }],
+        params: [{ chainId: '0x13881' }],
       });
     } catch (error) {
       if (error.code === 4902) {
@@ -52,7 +51,7 @@ export default function UserLayout() {
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: '0x61',
+                chainId: '0x13881',
                 rpcUrl: RPC_URL,
               },
             ],

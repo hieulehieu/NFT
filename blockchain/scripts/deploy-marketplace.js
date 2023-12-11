@@ -11,7 +11,7 @@ async function main() {
     console.log("==========================================================================");
     console.log("DEPLOYING CONTRACTS");
     console.log("==========================================================================");
-    const treasury = "0xAc84926f0b9df7ff3B4f4377C5536Fff89e9aF54";
+    const treasury = "0xcCbaead41F6adfA1F0C773dB8A4ae7D088d55c80";
     const marketPercent = 250;
     const marketplace = await Marketplace.deploy(treasury, marketPercent);
     console.log("Marketplace                        deployed to:>>", marketplace.address.toLowerCase());

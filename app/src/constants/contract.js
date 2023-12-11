@@ -1,5 +1,5 @@
-export const CHAIN_ID = 97;
-export const RPC_URL = 'https://data-seed-prebsc-1-s1.bnbchain.org:8545';
+export const CHAIN_ID = 80001;
+export const RPC_URL = 'https://polygon-mumbai.g.alchemy.com/v2/zCgmIL8j7_fMuq2Q8uDQtcuj_w4tne2E';
 
 export const NFT_CONTRACT_ADDRESS = '0x7fbac9d3b38375be3cd3ecf9701f4bd3349dd392';
 export const wBNB_ADDRESS = '0xefa11f1dc4ef87aca3027cb458b64bf8c0344e1c';
