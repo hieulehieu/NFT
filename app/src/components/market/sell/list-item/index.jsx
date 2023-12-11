@@ -43,6 +43,10 @@ export default function ListItem({ onClose, onClick }) {
 
   const handleOnChangePage = (page) => {
     setCurrentPage(page);
+    setListNFT({
+      ...listNFT,
+      nfts: allNfts.slice((page - 1) * 5, Number(page) * 5),
+    });
   };
 
   const handleClickItem = (item) => {
@@ -53,13 +57,6 @@ export default function ListItem({ onClose, onClick }) {
   useEffect(() => {
     fetchNFTs();
   }, [account.address]);
-
-  useEffect(() => {
-    setListNFT({
-      ...listNFT,
-      nfts: allNfts.slice((currentPage - 1) * 5, Number(currentPage) * 5),
-    });
-  }, [currentPage]);
 
   return (
     <div className={styles.container}>
@@ -83,7 +80,6 @@ export default function ListItem({ onClose, onClick }) {
                     text: 'Choose NFT',
                     handle: () => handleClickItem(item),
                   }}
-                  handleTokenBoundAccount={() => setSelectedTokenBoundAccount(item)}
                 />
               ))}
             </div>

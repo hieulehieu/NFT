@@ -4,7 +4,7 @@ import { DEFAULT_NO_IMAGE } from '@src/constants';
 import styles from './styles.module.scss';
 import Skeleton from 'react-loading-skeleton';
 
-export default function Card({ item, action: { text, handle }, handleTokenBoundAccount, style = {} }) {
+export default function Card({ item, action: { text, handle }, style = {} }) {
   const [ref, loaded, onLoad] = useImageLoaded();
 
   return (
@@ -24,8 +24,7 @@ export default function Card({ item, action: { text, handle }, handleTokenBoundA
       <div className={styles.collection}>{item.metadata.collection || item.collectionName || item.metadata.name}</div>
       <div className={styles.name}>{item.metadata.name || `${item.collectionSymbol} #${item.tokenId}`}</div>
       <div className={styles.extension}>
-        <span>{item.usage}</span>
-        {item.usage === 'ERC-6551' && <button onClick={handleTokenBoundAccount}>View assets</button>}
+        <span>ERC-721</span>
       </div>
     </div>
   );
