@@ -32,7 +32,7 @@ export default function UserLayout() {
           setAccount({
             address: accounts[0].toLowerCase(),
             balance: balance,
-            currency: 'wBNB',
+            currency: 'MATIC',
           })
         );
       }

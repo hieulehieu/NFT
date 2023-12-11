@@ -28,11 +28,11 @@ export default function ListItem({ onClose, onClick }) {
     if (currentPage === 0) return;
     try {
       setIsLoading(true);
-      const { data } = await getNFTsOfOwner(account.address);
+      const data = await getNFTsOfOwner(account.address);
       setAllNfts(data);
       setListNFT({
         total: data.length,
-        nfts: data.slice(0, 5),
+        nfts: data.slice(0, 5).map((item) => ({ ...item, metadata: JSON.parse(item.metadata) })),
       });
       setIsLoading(false);
     } catch (error) {
@@ -45,12 +45,14 @@ export default function ListItem({ onClose, onClick }) {
     setCurrentPage(page);
     setListNFT({
       ...listNFT,
-      nfts: allNfts.slice((page - 1) * 5, Number(page) * 5),
+      nfts: allNfts
+        .slice((page - 1) * 5, Number(page) * 5)
+        .map((item) => ({ ...item, metadata: JSON.parse(item.metadata) })),
     });
   };
 
   const handleClickItem = (item) => {
-    onClick({ address: item.collectionAddress, id: item.tokenId });
+    onClick({ address: item.token_address, id: item.token_id });
     onClose();
   };
 

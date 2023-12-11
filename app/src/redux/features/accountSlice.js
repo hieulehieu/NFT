@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   address: '',
   balance: 0,
-  currency: 'wBNB',
+  currency: 'MATIC',
 };
 
 export const accountSlice = createSlice({

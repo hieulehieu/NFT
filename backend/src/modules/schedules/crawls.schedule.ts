@@ -43,8 +43,8 @@ export class CrawlsSchedule implements OnModuleInit {
     }
 
     // Avoid error exceed maximum block range
-    if (toBlock - crawlLatestBlock > 5000) {
-      toBlock = crawlLatestBlock + 5000;
+    if (toBlock - crawlLatestBlock > 1000) {
+      toBlock = crawlLatestBlock + 1000;
     }
 
     this.logger.log(

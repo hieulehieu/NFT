@@ -30,7 +30,7 @@ const Cart = () => {
       setCommitLoading(true);
       const onChainIds = Object.values(cartItems).map((cart) => cart.marketItem.onChainId);
       const marketItemIds = Object.values(cartItems).map((cart) => cart.marketItem.id);
-      const tx = await marketplaceContractWrite('purchaseItems', [onChainIds], ethers.utils.parseEther(totalPrice));
+      const tx = await marketplaceContractWrite('purchaseItems', [onChainIds], ethers.utils.parseEther(`${totalPrice}`));
 
       await tx.wait();
       await deleteAllOfOwner(account.address);
