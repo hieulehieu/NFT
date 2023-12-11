@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from '../styles.module.scss';
 
-const BSC_SCAN = import.meta.env.VITE_BSC_SCAN;
+const MUMBAI_SCAN = import.meta.env.VITE_MUMBAI_SCAN;
 
 export default function Activity({ title, marketItem }) {
   const account = useSelector((state) => state.account);
@@ -60,13 +60,13 @@ export default function Activity({ title, marketItem }) {
                     {item.price} {account.currency}
                   </div>
                   <div className={styles['table-list-item']}>
-                    <Link to={`${BSC_SCAN}/address/${item.owner}`} target="_blank">
+                    <Link to={`${MUMBAI_SCAN}/address/${item.owner}`} target="_blank">
                       {sliceAddress(item.owner)}
                     </Link>
                   </div>
                   <div className={styles['table-list-item']}>
                     {item.buyer ? (
-                      <Link to={`${BSC_SCAN}/address/${item.buyer}`} target="_blank">
+                      <Link to={`${MUMBAI_SCAN}/address/${item.buyer}`} target="_blank">
                         {sliceAddress(item.buyer)}
                       </Link>
                     ) : (
@@ -86,13 +86,13 @@ export default function Activity({ title, marketItem }) {
                   {item.price} {account.currency}
                 </div>
                 <div className={styles['table-list-item']}>
-                  <Link to={`${BSC_SCAN}/address/${item.owner}`} target="_blank">
+                  <Link to={`${MUMBAI_SCAN}/address/${item.owner}`} target="_blank">
                     {sliceAddress(item.owner)}
                   </Link>
                 </div>
                 <div className={styles['table-list-item']}>
                   {item.buyer ? (
-                    <Link to={`${BSC_SCAN}/address/${item.buyer}`} target="_blank">
+                    <Link to={`${MUMBAI_SCAN}/address/${item.buyer}`} target="_blank">
                       {sliceAddress(item.buyer)}
                     </Link>
                   ) : (
@@ -111,7 +111,7 @@ export default function Activity({ title, marketItem }) {
             <div className={styles['table-list-item']}>0 {account.currency}</div>
             <div className={styles['table-list-item']}>Null Address</div>
             <div className={styles['table-list-item']}>
-              <Link to={`${BSC_SCAN}/address/${mintTransaction.to_address}`} target="_blank">
+              <Link to={`${MUMBAI_SCAN}/address/${mintTransaction.to_address}`} target="_blank">
                 {sliceAddress(mintTransaction.to_address)}
               </Link>
             </div>

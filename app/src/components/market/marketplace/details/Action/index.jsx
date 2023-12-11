@@ -1,25 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from 'react-redux';
-import styles from '../styles.module.scss';
-import { useEffect, useState } from 'react';
+import { Icon } from '@iconify/react';
+import { addToCart as addToCartApi, deleteAllOfMarketItem, deleteFromCart } from '@src/api/cart.api';
+import { addToCart, removeFromCart } from '@src/redux/features/cartSlice';
 import {
+  calculateDiffTime,
   getBNBPrice,
   isMarketItemInSale,
-  calculateDiffTime,
-  upperCaseFirstLetter,
-  checkAllowance,
-  approveERC20,
   parseMetamaskError,
+  upperCaseFirstLetter
 } from '@src/utils';
-import { Icon } from '@iconify/react';
-import moment from 'moment';
-import ReactLoading from 'react-loading';
-import { ethers } from 'ethers';
-import { MARKETPLACE_ADDRESS } from '@src/constants';
 import { write as marketplaceContractWrite } from '@src/utils/contracts/marketplace';
-import { deleteAllOfMarketItem, deleteFromCart, addToCart as addToCartApi } from '@src/api/cart.api';
+import { ethers } from 'ethers';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { removeFromCart, addToCart } from '@src/redux/features/cartSlice';
+import ReactLoading from 'react-loading';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from '../styles.module.scss';
 
 export default function Action({ marketItem }) {
   const dispatch = useDispatch();
@@ -42,12 +39,7 @@ export default function Action({ marketItem }) {
     try {
       setCommitLoading(true);
       const marketItemPrice = isInSale ? marketItem.salePrice : marketItem.price;
-      if (!(await checkAllowance(account.address, ethers.utils.parseUnits(marketItemPrice, 18), MARKETPLACE_ADDRESS))) {
-        const tx = await approveERC20(ethers.utils.parseUnits(marketItemPrice, 18), MARKETPLACE_ADDRESS);
-        await tx.wait();
-      }
-
-      const tx = await marketplaceContractWrite('purchaseItems', [[marketItem.onChainId]]);
+      const tx = await marketplaceContractWrite('purchaseItems', [[marketItem.onChainId]], ethers.utils.parseEther(marketItemPrice));
 
       await tx.wait();
       await deleteAllOfMarketItem(marketItem.id);

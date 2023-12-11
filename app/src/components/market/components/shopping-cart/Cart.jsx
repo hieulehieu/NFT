@@ -1,7 +1,9 @@
 import { deleteAllOfMarketItem, deleteAllOfOwner } from '@src/api/cart.api';
 import { clearAllCart, selectTotalPrice } from '@src/redux/features/cartSlice';
-import { approveERC20, checkAllowance, parseMetamaskError } from '@src/utils';
+import { parseMetamaskError } from '@src/utils';
+import { write as marketplaceContractWrite } from '@src/utils/contracts/marketplace';
 import { Button } from 'antd';
+import { ethers } from 'ethers';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import ReactLoading from 'react-loading';
@@ -9,9 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 import { StyledCart } from './styled';
-import { write as marketplaceContractWrite } from '@src/utils/contracts/marketplace';
-import { ethers } from 'ethers';
-import { MARKETPLACE_ADDRESS } from '@src/constants';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -29,14 +28,9 @@ const Cart = () => {
         return;
       }
       setCommitLoading(true);
-      if (!(await checkAllowance(account.address, ethers.utils.parseUnits(totalPrice, 18), MARKETPLACE_ADDRESS))) {
-        const tx = await approveERC20(ethers.utils.parseUnits(totalPrice, 18), MARKETPLACE_ADDRESS);
-        await tx.wait();
-      }
-
       const onChainIds = Object.values(cartItems).map((cart) => cart.marketItem.onChainId);
       const marketItemIds = Object.values(cartItems).map((cart) => cart.marketItem.id);
-      const tx = await marketplaceContractWrite('purchaseItems', [onChainIds]);
+      const tx = await marketplaceContractWrite('purchaseItems', [onChainIds], ethers.utils.parseEther(totalPrice));
 
       await tx.wait();
       await deleteAllOfOwner(account.address);

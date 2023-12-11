@@ -54,7 +54,7 @@ const config = {
             polygon: process.env.POLYGON_API_KEY,
             goerli: process.env.STAGING_ETHER_API_KEY,
             bscTestnet: process.env.BINANCE_API_KEY,
-            mumbaiTestnet: process.env.MUMBAI_API_KEY,
+            polygonMumbai: process.env.MUMBAI_API_KEY
         },
     },
     solidity: {

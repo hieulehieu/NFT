@@ -19,7 +19,7 @@ export default function ConnectMetamask({ handleAccountsChanged, requireSwitchNe
 
   return (
     <div className={styles.container}>
-      <button onClick={handleClick}>Connect metamask and switch BSC Network</button>
+      <button onClick={handleClick}>Connect metamask and switch Mumbai Network</button>
     </div>
   );
 }

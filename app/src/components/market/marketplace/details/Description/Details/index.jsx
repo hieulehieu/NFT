@@ -6,7 +6,7 @@ import moment from 'moment';
 import { marketPlaceContract } from '@src/utils';
 import { useEffect, useState } from 'react';
 
-const BSC_SCAN = import.meta.env.VITE_BSC_SCAN;
+const MUMBAI_SCAN = import.meta.env.VITE_MUMBAI_SCAN;
 
 export default function Details({ marketItem }) {
   const [commissionFee, setCommissionFee] = useState(0);
@@ -32,7 +32,7 @@ export default function Details({ marketItem }) {
       <div className={styles['detail-item']}>
         <div className={styles['detail-item-label']}>Contract Address</div>
         <div className={styles['detail-item-value']}>
-          <Link to={`${BSC_SCAN}/address/marketItem.nftAddress`} target="_blank">
+          <Link to={`${MUMBAI_SCAN}/address/marketItem.nftAddress`} target="_blank">
             {sliceAddress(marketItem.nftAddress)}
           </Link>
         </div>
@@ -47,7 +47,7 @@ export default function Details({ marketItem }) {
       </div>
       <div className={styles['detail-item']}>
         <div className={styles['detail-item-label']}>Chain</div>
-        <div className={styles['detail-item-value']}>BSC Testnet</div>
+        <div className={styles['detail-item-value']}>Mumbai Testnet</div>
       </div>
       <div className={styles['detail-item']}>
         <div className={styles['detail-item-label']}>Last Updated</div>

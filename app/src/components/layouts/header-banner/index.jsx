@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
-import { getStakedByUser } from '@src/utils/contracts/lending-pool';
+import { useSelector } from 'react-redux';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
-import bnbTokenIcon from '@src/assets/bnb-token.svg';
-
-const BSC_SCAN = import.meta.env.VITE_BSC_SCAN;
 
 export default function HeaderBanner({ title = '', description = '', tabs = [], right = true }) {
   const navigate = useNavigate();
@@ -16,18 +11,6 @@ export default function HeaderBanner({ title = '', description = '', tabs = [], 
 
   const handleNavigate = async (url) => {
     try {
-      if (url === '/lending-pool/requests') {
-        const balance = await getStakedByUser(account.address);
-        if (balance == 0) {
-          toast.error('You must stake to Lending Pool to use this feature!', {
-            duration: 3000,
-            style: {
-              fontWeight: 600,
-            },
-          });
-          return;
-        }
-      }
       navigate(url);
     } catch (error) {
       toast.error('An error has been occurred!', {
@@ -43,36 +26,8 @@ export default function HeaderBanner({ title = '', description = '', tabs = [], 
     <div>
       <div className={styles.header}>
         <div className={styles.left}>
-          {pathname.startsWith('/profile') || pathname.startsWith('/admin') ? (
-            <>
-              <h1>{pathname.startsWith('/admin') ? 'Administrator' : 'Account'}</h1>
-              <div className={styles.address}>{account.address}</div>
-              <div className={styles.social}>
-                <Link
-                  className={styles['social-item']}
-                  to={`${BSC_SCAN}/address/${account.address}`}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <img src={bnbTokenIcon} alt="BSCScan" />
-                  <span>BSCScan</span>
-                </Link>
-                <Link className={styles['social-item']} to={`#`} rel="noreferrer" target="_blank">
-                  <Icon icon="logos:twitter" fontSize={18} />
-                  <span>Twitter</span>
-                </Link>
-                <Link className={styles['social-item']} to={`#`} rel="noreferrer" target="_blank">
-                  <Icon icon="logos:facebook" fontSize={18} />
-                  <span>Facebook</span>
-                </Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <h1>{title}</h1>
-              <div className={styles.description}>{description}</div>
-            </>
-          )}
+          <h1>{title}</h1>
+          <div className={styles.description}>{description}</div>
         </div>
         {right && (
           <div className={styles.right}>

@@ -24,7 +24,7 @@ services:
     expose:
       - 3306
     environment:
-      - MYSQL_DATABASE=marketplacefi
+      - MYSQL_DATABASE=marketplace
       - MYSQL_USER=marketplacefi
       - MYSQL_PASSWORD=marketplacefi
       - MYSQL_ROOT_PASSWORD=root

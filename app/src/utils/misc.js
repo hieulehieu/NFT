@@ -1,8 +1,3 @@
-import { OfferStatus, OrderStatus } from '@src/constants/enum';
-import { wBNB_ADDRESS } from '@src/constants';
-import { ethers } from 'ethers';
-import { ONE_DAY } from '@src/constants';
-import { RequestStatus } from '../constants/enum';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -24,55 +19,6 @@ export const getRandomNumber = (min, max) => {
 
 export const getRandomInt = () => {
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-};
-
-export const getOfferStatusText = (status) => {
-  return Object.fromEntries(Object.entries(OfferStatus).map((a) => a.reverse()))[status];
-};
-
-export const getOrderStatusText = (status) => {
-  return Object.fromEntries(Object.entries(OrderStatus).map((a) => a.reverse()))[status];
-};
-
-export const getRequestStatusText = (status) => {
-  return Object.fromEntries(Object.entries(RequestStatus).map((a) => a.reverse()))[status];
-};
-
-export const convertOfferDataToSign = (offer) => {
-  const offerData = {
-    offer: ethers.utils.parseUnits(offer.offer, 18),
-    repayment: ethers.utils.parseUnits(offer.repayment, 18),
-    nftTokenId: offer.nftTokenId,
-    nftAddress: offer.nftAddress,
-    duration: offer.duration * ONE_DAY,
-    adminFeeInBasisPoints: 25,
-    erc20Denomination: wBNB_ADDRESS,
-  };
-
-  const signatureData = {
-    signer: offer.creator,
-    nonce: getRandomInt(),
-    expiry: Math.floor(new Date().getTime() / 1000) + ONE_DAY * offer.expiration,
-  };
-
-  return { offerData, signatureData };
-};
-
-export const convertRequestDataToSign = (request) => {
-  const requestData = {
-    loanId: request.offer.hash || request.offerHash,
-    loanDuration: request.loanDuration * ONE_DAY,
-    renegotiateFee: ethers.utils.parseUnits(request.renegotiateFee, 18).toString(),
-    repayment: ethers.utils.parseUnits(request.repayment, 18).toString(),
-  };
-
-  const signatureData = {
-    signer: request.offer.creator,
-    nonce: getRandomInt(),
-    expiry: getTimestamp() + ONE_DAY * request.expiration,
-  };
-
-  return { requestData, signatureData };
 };
 
 export function mergeRefs(refs) {

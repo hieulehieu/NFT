@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Icon } from '@iconify/react';
 import { addToCart as addToCartApi, deleteAllOfMarketItem, deleteFromCart } from '@src/api/cart.api';
-import { DEFAULT_NO_IMAGE, MARKETPLACE_ADDRESS } from '@src/constants';
+import { DEFAULT_NO_IMAGE } from '@src/constants';
 import { useImageLoaded } from '@src/hooks/useImageLoaded';
 import { addToCart, removeFromCart } from '@src/redux/features/cartSlice';
-import { approveERC20, checkAllowance, isMarketItemInSale, parseMetamaskError } from '@src/utils';
+import { isMarketItemInSale, parseMetamaskError } from '@src/utils';
 import { write as marketplaceContractWrite } from '@src/utils/contracts/marketplace';
 import { ethers } from 'ethers';
 import { useState } from 'react';
@@ -26,12 +26,9 @@ export default function MarketItem({ item, editable, marketItemInCarts = {}, act
     try {
       setCommitLoading(true);
       const marketItemPrice = isMarketItemInSale(marketItem) ? marketItem.salePrice : marketItem.price;
-      if (!(await checkAllowance(account.address, ethers.utils.parseUnits(marketItemPrice, 18), MARKETPLACE_ADDRESS))) {
-        const tx = await approveERC20(ethers.utils.parseUnits(marketItemPrice, 18), MARKETPLACE_ADDRESS);
-        await tx.wait();
-      }
+      const price = ethers.utils.parseEther(marketItemPrice);
 
-      const tx = await marketplaceContractWrite('purchaseItems', [[marketItem.onChainId]]);
+      const tx = await marketplaceContractWrite('purchaseItems', [[marketItem.onChainId]], price);
 
       await tx.wait();
       await deleteAllOfMarketItem(marketItem.id);

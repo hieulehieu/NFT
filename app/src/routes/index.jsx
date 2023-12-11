@@ -42,7 +42,7 @@ export const userRoutes = [
         element: (
           <HeaderBanner
             title="Create New NFT"
-            description="Single edition on BSC"
+            description="Single edition on Mumbai"
             right={false}
             tabs={MARKETPLACE_TABS}
           />
