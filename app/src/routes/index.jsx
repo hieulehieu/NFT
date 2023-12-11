@@ -6,6 +6,7 @@ import MarketplaceSellNft from '@src/components/market/sell';
 import SellingNfts from '@src/components/market/selling-nfts';
 import { MARKETPLACE_TABS } from '@src/constants';
 import HomePage from '@src/pages';
+import MintNftPage from '@src/pages/nft/mint';
 
 export const userRoutes = [
   {
@@ -57,6 +58,10 @@ export const userRoutes = [
       {
         path: 'marketplace/assets/:id',
         element: <MarketItemDetails />,
+      },
+      {
+        path: 'mint-nft',
+        element: <MintNftPage />,
       },
     ],
   },

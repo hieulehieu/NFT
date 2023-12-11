@@ -124,3 +124,7 @@ button:disabled:hover {
 .ant-collapse-item {
   border-bottom-color: rgba(146, 108, 227, 0.3) !important;
 }
+
+input.black-color {
+  color: #000;
+}

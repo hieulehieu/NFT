@@ -94,7 +94,7 @@ export default function UserLayout() {
   }, [window.ethereum]);
 
   useEffect(() => {
-    fetchCarts();
+    // fetchCarts();
   }, [account.address]);
 
   return (

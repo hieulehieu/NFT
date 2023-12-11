@@ -23,10 +23,11 @@ export const approveERC721 = async (tokenId, operator, contractAddress) => {
   return contract.approve(operator, tokenId);
 };
 
-export const mintERC721 = async (address, uri, contractAddress) => {
+export const mintERC721 = async (contractAddress, address, amount) => {
+  console.log(contractAddress, address, amount)
   const signer = provider.getSigner();
   const contract = ERC721Contract(contractAddress, signer);
-  return contract.mint(address, uri);
+  return contract.mint(address, amount);
 };
 
 export const isERC721Contract = async (contractAddress) => {
