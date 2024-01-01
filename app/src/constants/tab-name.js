@@ -39,6 +39,10 @@ export const FOOTER_MENU = [
         title: 'Auction NFT',
         link: '/marketplace/auction',
       },
+      {
+        title: 'List Auction NFT',
+        link: '/marketplace/listauction',
+      },
     ],
   },
   {
@@ -76,6 +80,10 @@ export const HEADER_MENU = [
         title: 'Auction NFT',
         link: '/marketplace/auction',
       },
+      {
+        title: 'List Auction NFT',
+        link: '/marketplace/listauction',
+      },
     ],
   },
 ];
@@ -96,5 +104,9 @@ export const MARKETPLACE_TABS = [
   {
     text: 'Auction NFT',
     url: '/marketplace/auction',
+  },
+  {
+    text: 'List Auction NFT',
+    url: '/marketplace/listauction',
   },
 ];
