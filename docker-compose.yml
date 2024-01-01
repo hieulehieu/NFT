@@ -25,9 +25,9 @@ services:
       - 3306
     environment:
       - MYSQL_DATABASE=marketplace
-      - MYSQL_USER=marketplacefi
-      - MYSQL_PASSWORD=marketplacefi
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Vanhieu512
+      - MYSQL_ROOT_PASSWORD=Vanhieu512
     networks:
       - marketplace-network
     restart: always

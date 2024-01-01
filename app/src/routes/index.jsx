@@ -1,5 +1,6 @@
 import UserLayout from '@src/components/layouts';
 import HeaderBanner from '@src/components/layouts/header-banner';
+import MarketplaceAuctionNft from '@src/components/market/auction';
 import Marketplace from '@src/components/market/marketplace';
 import MarketItemDetails from '@src/components/market/marketplace/details';
 import MarketplaceSellNft from '@src/components/market/sell';
@@ -35,6 +36,10 @@ export const userRoutes = [
           {
             path: '/marketplace/selling-nfts',
             element: <SellingNfts />,
+          },
+          {
+            path: '/marketplace/auction',
+            element: <MarketplaceAuctionNft />,
           },
         ],
       },

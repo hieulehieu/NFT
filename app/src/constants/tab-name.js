@@ -35,6 +35,10 @@ export const FOOTER_MENU = [
         title: 'Sell NFT',
         link: '/marketplace/sell',
       },
+      {
+        title: 'Auction NFT',
+        link: '/marketplace/auction',
+      },
     ],
   },
   {
@@ -68,6 +72,10 @@ export const HEADER_MENU = [
         title: 'Sell NFT',
         link: '/marketplace/sell',
       },
+      {
+        title: 'Auction NFT',
+        link: '/marketplace/auction',
+      },
     ],
   },
 ];
@@ -84,5 +92,9 @@ export const MARKETPLACE_TABS = [
   {
     text: 'Sell your NFT',
     url: '/marketplace/sell',
+  },
+  {
+    text: 'Auction NFT',
+    url: '/marketplace/auction',
   },
 ];
