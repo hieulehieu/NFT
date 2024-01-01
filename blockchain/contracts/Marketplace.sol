@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import { ItemStatus, MarketItem, MarketItemParams, IMarketplace } from "./interfaces/IMarketplace.sol";
+import { ItemStatus, MarketItem, MarketItemParams, AuctionItem, AuctionItemParams, Bidder, IMarketplace } from "./interfaces/IMarketplace.sol";
 import "./libraries/Helper.sol";
 import "./utils/Permission.sol";
 
@@ -18,18 +18,27 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
     address public treasury; // the account that receives fees
     uint256 public royaltyPercent; // the fee percentage on sales
     Counters.Counter public itemIds;
+    Counters.Counter public auctionItemIds;
 
     uint16 public constant HUNDRED_PERCENT = 10000;
     uint256 public constant MAX_BATCH_PURCHASE_ITEM = 15;
 
     // itemId -> Item
     mapping(uint256 => MarketItem) public marketItems;
+    // auctionItemId -> AuctionItem
+    mapping(uint256 => AuctionItem) public auctionItems;
+    // auctionItemId -> Bidder
+    mapping(uint256 => Bidder) public bidders;
 
     event ListedItem(uint256 indexed itemId, MarketItemParams marketItem);
     event PurchasedItem(uint256 indexed itemId, address indexed buyer);
     event ClosedItem(uint256 indexed itemId);
     event ForceRemovedItem(uint256 indexed itemId);
     event UpdatedItem(uint256 indexed itemId, uint256 price, uint256 timeSaleStart, uint256 timeSaleEnd, uint256 salePrice);
+    event ListedAuctionItem(uint256 indexed itemId, AuctionItemParams auctionItem);
+    event BiddedItem(uint256 indexed itemId, address bidder, uint256 amount);
+    event DistrubutedAuctionItem(uint256 indexed itemId);
+    event ClosedAuctionItem(uint256 indexed itemId);
     event SetTreasury(address oldTreasury, address newTreasury);
     event SetRoyaltyPercent(uint256 oldRoyaltyPercent, uint256 newRoyaltyPercent);
 
@@ -41,6 +50,12 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
     modifier validMarketItem(uint256 _itemId) {
         require(marketItems[_itemId].itemId > 0, "Invalid item id");
         require(marketItems[_itemId].status == ItemStatus.OPENING, "Item is not opening");
+        _;
+    }
+
+    modifier validAuctionItem(uint256 _itemId) {
+        require(auctionItems[_itemId].itemId > 0, "Invalid item id");
+        require(auctionItems[_itemId].status == ItemStatus.OPENING, "Auction is not valid");
         _;
     }
 
@@ -128,6 +143,64 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
 
         IERC721(marketItems[_itemId].nft).transferFrom(address(this), _msgSender(), marketItems[_itemId].tokenId);
         emit ForceRemovedItem(marketItems[_itemId].itemId);
+    }
+
+    function listAuctionItem(AuctionItemParams memory _auctionItemParams) external {
+        require(_auctionItemParams.timeStart > 0 && _auctionItemParams.timeEnd > _auctionItemParams.timeStart, "Invalid time sale");
+
+        auctionItemIds.increment();
+        auctionItems[auctionItemIds.current()] = AuctionItem({
+            itemId: auctionItemIds.current(),
+            nft: _auctionItemParams.nft,
+            tokenId: _auctionItemParams.tokenId,
+            initPrice: _auctionItemParams.initPrice,
+            timeStart: _auctionItemParams.timeStart,
+            timeEnd: _auctionItemParams.timeEnd,
+            seller: _msgSender(),
+            feeReceiver: _auctionItemParams.feeReceiver,
+            status: ItemStatus.OPENING
+        });
+        IERC721(_auctionItemParams.nft).transferFrom(_msgSender(), address(this), _auctionItemParams.tokenId);
+        emit ListedAuctionItem(itemIds.current(), _auctionItemParams);
+    }
+
+    function bidItem(uint256 _itemId) external payable validAuctionItem(_itemId) nonReentrant {
+        require(block.timestamp >= auctionItems[_itemId].timeStart && block.timestamp <= auctionItems[_itemId].timeEnd, "Auction has not opened");
+        require(msg.value > bidders[_itemId].amount && msg.value >= auctionItems[_itemId].initPrice, "Invalid amount");
+        uint256 currentBidAmount = bidders[_itemId].amount;
+        bidders[_itemId].amount = 0;
+        if (currentBidAmount > 0) {
+            Helper.safeTransferNative(bidders[_itemId].bidder, currentBidAmount);
+        }
+
+        bidders[_itemId].amount = msg.value;
+        bidders[_itemId].bidder = _msgSender();
+
+        emit BiddedItem(_itemId, _msgSender(), msg.value);
+    }
+
+    function distributeAuctionItem(uint256 _itemId) external validAuctionItem(_itemId) nonReentrant {
+        require(block.timestamp > auctionItems[_itemId].timeEnd, "Auction has not ended");
+        require(bidders[_itemId].amount > 0, "No one bids for this item");
+        AuctionItem storage auctionItem = auctionItems[_itemId];
+        auctionItem.status = ItemStatus.SOLD;
+
+        uint256 itemPrice = bidders[_itemId].amount;
+        uint256 royaltyFee = (itemPrice * royaltyPercent) / HUNDRED_PERCENT;
+        Helper.safeTransferNative(treasury, royaltyFee);
+        Helper.safeTransferNative(auctionItem.feeReceiver, itemPrice - royaltyFee);
+
+        IERC721(auctionItem.nft).transferFrom(address(this), bidders[_itemId].bidder, auctionItem.tokenId);
+
+        emit DistrubutedAuctionItem(_itemId);
+    }
+
+    function closeAuctionItem(uint256 _itemId) external validAuctionItem(_itemId) {
+        require(auctionItems[_itemId].seller == _msgSender(), "Caller is not seller");
+        auctionItems[_itemId].status = ItemStatus.CLOSED;
+
+        IERC721(auctionItems[_itemId].nft).transferFrom(address(this), _msgSender(), auctionItems[_itemId].tokenId);
+        emit ClosedItem(auctionItems[_itemId].itemId);
     }
 
     function setTreasury(address _treasury) external onlyOwner {

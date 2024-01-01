@@ -33,6 +33,33 @@ struct MarketItemParams {
     address feeReceiver;
 }
 
+struct AuctionItem {
+    uint256 itemId;
+    address nft;
+    uint256 tokenId;
+    uint256 initPrice;
+    uint256 timeStart;
+    uint256 timeEnd;
+    address seller;
+    address feeReceiver;
+    ItemStatus status;
+}
+
+struct AuctionItemParams {
+    address nft;
+    uint256 tokenId;
+    uint256 initPrice;
+    uint256 timeStart;
+    uint256 timeEnd;
+    address feeReceiver;
+}
+
+struct Bidder {
+    uint256 auctionItem;
+    address bidder;
+    uint256 amount;
+}
+
 interface IMarketplace {
     function listItem(MarketItemParams memory maketItemParams) external;
 
@@ -41,6 +68,14 @@ interface IMarketplace {
     function closeItem(uint256 _itemId) external;
 
     function updateItem(uint256 _itemId, uint256 _price, uint256 _timeStart, uint256 _timeEnd, uint256 _salePrice) external;
+
+    function listAuctionItem(AuctionItemParams memory _auctionItemParams) external;
+
+    function bidItem(uint256 _itemId) external payable;
+
+    function distributeAuctionItem(uint256 _itemId) external;
+
+    function closeAuctionItem(uint256 _itemId) external;
 
     function setTreasury(address _treasury) external;
 
