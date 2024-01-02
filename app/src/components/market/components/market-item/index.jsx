@@ -99,7 +99,7 @@ export default function MarketItem({ item, editable, marketItemInCarts = {}, act
               <span>{item.salePrice}</span>
             </>
           ) : (
-            <span>{item.price}</span>
+            <span>{item.price || `Current: ${item?.highestBidder ? item.highestBidder.amount : item?.initPrice}`}</span>
           )}{' '}
           {account.currency}
         </div>

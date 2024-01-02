@@ -5,9 +5,9 @@ import { addToCart, removeFromCart } from '@src/redux/features/cartSlice';
 import {
   calculateDiffTime,
   getBNBPrice,
-  isMarketItemInSale,
+  isAuctionItemInSale,
   parseMetamaskError,
-  upperCaseFirstLetter
+  upperCaseFirstLetter,
 } from '@src/utils';
 import { write as marketplaceContractWrite } from '@src/utils/contracts/marketplace';
 import { ethers } from 'ethers';
@@ -32,18 +32,21 @@ export default function Action({ marketItem }) {
     minutes: '00',
     seconds: '00',
   });
+  const [bidPrice, setBidPrice] = useState(0);
 
-  const isInSale = isMarketItemInSale(marketItem);
+  const isInSale = isAuctionItemInSale(marketItem);
 
   const handleBuyNow = async () => {
     try {
       setCommitLoading(true);
-      const marketItemPrice = isInSale ? marketItem.salePrice : marketItem.price;
-      const tx = await marketplaceContractWrite('purchaseItems', [[marketItem.onChainId]], ethers.utils.parseEther(marketItemPrice));
+      const tx = await marketplaceContractWrite(
+        'bidItem',
+        [marketItem.onChainId],
+        ethers.utils.parseEther(`${bidPrice}`)
+      );
 
       await tx.wait();
-      await deleteAllOfMarketItem(marketItem.id);
-      toast.success('Buy NFT successfully');
+      toast.success('Bid NFT successfully');
       setCommitLoading(false);
     } catch (error) {
       console.log(error);
@@ -53,23 +56,13 @@ export default function Action({ marketItem }) {
     }
   };
 
-  const handleActionCart = async () => {
+  const handleDistributeAuctionItem = async () => {
     try {
       setCommitLoading(true);
-      const cart = Object.values(carts).find((item) => item.marketItem.id === marketItem.id);
-      if (cart) {
-        const cartId = cart.id;
-        await deleteFromCart(cartId);
-        dispatch(removeFromCart(cartId));
-        toast.success('Remove cart successfully');
-      } else {
-        const { data } = await addToCartApi({
-          owner: account.address,
-          marketItem: marketItem.id,
-        });
-        dispatch(addToCart({ [data.id]: data }));
-        toast.success('Add to cart successfully');
-      }
+      const tx = await marketplaceContractWrite('distributeAuctionItem', [marketItem.onChainId]);
+
+      await tx.wait();
+      toast.success('Distribute NFT to bidder successfully');
       setCommitLoading(false);
     } catch (error) {
       console.log(error);
@@ -84,7 +77,7 @@ export default function Action({ marketItem }) {
 
     if (isInSale) {
       setInterval(() => {
-        const result = calculateDiffTime(marketItem.timeSaleEnd * 1000, new Date().getTime());
+        const result = calculateDiffTime(marketItem.timeEnd * 1000, new Date().getTime());
         setCountdownTime(result);
       }, 1000);
     }
@@ -100,7 +93,7 @@ export default function Action({ marketItem }) {
       {isInSale && (
         <div className={styles.sale}>
           <div className={styles['sale-time']}>
-            Sale ends {moment(marketItem.timeSaleEnd * 1000).format('MMMM Do YYYY, h:mm:ss A')}
+            Auction ends {moment(marketItem.timeEnd * 1000).format('MMMM Do YYYY, h:mm:ss A')}
           </div>
           <div className={styles['sale-countdown']}>
             {Object.keys(countdownTime).map((key, index) => (
@@ -114,27 +107,38 @@ export default function Action({ marketItem }) {
       )}
 
       <div className={styles['action-main']}>
-        <div className={styles.label}>Current Price</div>
-        <div className={`${styles.price}  ${isInSale ? styles['unused-price'] : ''}`}>
+        <div className={styles.label}>Highest bid amount</div>
+        <div className={`${styles.price} `}>
           <span>
-            {marketItem.price} {account.currency}
+            {marketItem.highestBidder ? marketItem.highestBidder.amount : marketItem.initPrice} {account.currency}
           </span>
-          <span>$ {(marketItem.price * bnbPrice).toFixed(2)}</span>
+          <span>
+            ${' '}
+            {((marketItem.highestBidder ? marketItem.highestBidder.amount : marketItem.initPrice) * bnbPrice).toFixed(
+              2
+            )}
+          </span>
         </div>
-        {isInSale && (
-          <div className={`${styles.price} ${styles['sale-price']}`}>
-            <span>
-              {marketItem.salePrice} {account.currency}
-            </span>
-            <span>$ {(marketItem.salePrice * bnbPrice).toFixed(2)}</span>
-          </div>
-        )}
-
         <div className={styles['action-button-wrap']}>
-          <button onClick={handleBuyNow} disabled={account.address.toLowerCase() === marketItem.owner.toLowerCase()}>
-            <Icon icon="icon-park-outline:buy" fontSize={24} />
-            <span>Buy now</span>
-          </button>
+          {isInSale ? (
+            <>
+              <input
+                placeholder="Input your amount"
+                type="number"
+                value={bidPrice}
+                onChange={(e) => setBidPrice(e.target.value)}
+              />
+              <button onClick={handleBuyNow}>
+                <Icon icon="icon-park-outline:buy" fontSize={24} />
+                <span>Bid for this item</span>
+              </button>
+            </>
+          ) : (
+            <button onClick={handleDistributeAuctionItem}>
+              <Icon icon="icon-park-outline:buy" fontSize={24} />
+              <span>Distribute auction item to bidder</span>{' '}
+            </button>
+          )}
         </div>
       </div>
     </div>

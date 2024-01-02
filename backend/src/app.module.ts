@@ -7,6 +7,7 @@ import { ConnectionsModule } from './connections/connections.module';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { CartsModule } from './modules/carts/carts.module';
 import { SchedulesModule } from './modules/schedules/schedules.module';
+import { AuctionItemsModule } from './modules/auction-items/auction-items.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SchedulesModule } from './modules/schedules/schedules.module';
     ConnectionsModule,
     SchedulesModule,
     CartsModule,
+    AuctionItemsModule,
   ],
   providers: [ConnectionsModule],
 })

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { getMarketItems } from '@src/api/marketplace.api';
+import { getAuctionItems } from '@src/api/marketplace.api';
 import { MarketItemStatus } from '@src/constants';
 import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ export default function Assets() {
   const fetchNFTs = async () => {
     if (currentPage === 0) return;
     try {
-      const { data } = await getMarketItems({
+      const { data } = await getAuctionItems({
         page: currentPage,
         status: MarketItemStatus.OPENING,
       });
@@ -72,7 +72,7 @@ export default function Assets() {
                 key={item.id}
                 item={item}
                 marketItemInCarts={marketItemInCarts}
-                action={{ text: 'View details', handle: () => navigate(`/marketplace/assets/${item.id}`) }}
+                action={{ text: 'View details', handle: () => navigate(`/marketplace/auction/${item.id}`) }}
               />
             ))}
           </div>

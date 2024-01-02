@@ -19,3 +19,23 @@ export const getMarketItemById = (id, params = {}) => {
     params,
   });
 };
+
+export const getAuctionItems = (params = {}) => {
+  return axios.get('/auction-items', {
+    params,
+  });
+};
+
+export const listAuctionItem = (data) => {
+  return axios.post('/auction-items', data);
+};
+
+export const updateAuctionItem = (id, data) => {
+  return axios.patch('/auction-items/' + id, data);
+};
+
+export const getAuctionItemById = (id, params = {}) => {
+  return axios.get('/auction-items/' + id, {
+    params,
+  });
+};

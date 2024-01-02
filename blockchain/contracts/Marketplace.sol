@@ -37,7 +37,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
     event UpdatedItem(uint256 indexed itemId, uint256 price, uint256 timeSaleStart, uint256 timeSaleEnd, uint256 salePrice);
     event ListedAuctionItem(uint256 indexed itemId, AuctionItemParams auctionItem);
     event BiddedItem(uint256 indexed itemId, address bidder, uint256 amount);
-    event DistrubutedAuctionItem(uint256 indexed itemId);
+    event DistributedAuctionItem(uint256 indexed itemId);
     event ClosedAuctionItem(uint256 indexed itemId);
     event SetTreasury(address oldTreasury, address newTreasury);
     event SetRoyaltyPercent(uint256 oldRoyaltyPercent, uint256 newRoyaltyPercent);
@@ -161,7 +161,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
             status: ItemStatus.OPENING
         });
         IERC721(_auctionItemParams.nft).transferFrom(_msgSender(), address(this), _auctionItemParams.tokenId);
-        emit ListedAuctionItem(itemIds.current(), _auctionItemParams);
+        emit ListedAuctionItem(auctionItemIds.current(), _auctionItemParams);
     }
 
     function bidItem(uint256 _itemId) external payable validAuctionItem(_itemId) nonReentrant {
@@ -192,7 +192,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
 
         IERC721(auctionItem.nft).transferFrom(address(this), bidders[_itemId].bidder, auctionItem.tokenId);
 
-        emit DistrubutedAuctionItem(_itemId);
+        emit DistributedAuctionItem(_itemId);
     }
 
     function closeAuctionItem(uint256 _itemId) external validAuctionItem(_itemId) {

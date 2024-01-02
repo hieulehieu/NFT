@@ -4,6 +4,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { JsonRpcProvider } from 'ethers';
 import { MarketItemsService } from '../market-items/market-items.service';
 import { Crawl } from './repositories/crawl.repository';
+import { AuctionItemsService } from '../auction-items/auction-items.service';
 
 @Injectable()
 export class CrawlsSchedule implements OnModuleInit {
@@ -12,6 +13,7 @@ export class CrawlsSchedule implements OnModuleInit {
 
   constructor(
     private marketItemsService: MarketItemsService,
+    private auctionItemsService: AuctionItemsService,
     private readonly crawl: Crawl,
     private readonly configService: ConfigService,
   ) {}
@@ -52,6 +54,12 @@ export class CrawlsSchedule implements OnModuleInit {
     );
 
     await this.marketItemsService.handleEvents(
+      this.rpcProvider,
+      crawlLatestBlock,
+      toBlock,
+    );
+
+    await this.auctionItemsService.handleEvents(
       this.rpcProvider,
       crawlLatestBlock,
       toBlock,
