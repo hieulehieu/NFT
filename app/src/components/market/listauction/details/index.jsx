@@ -5,13 +5,13 @@ import Action from './Action';
 import Activity from './Activity';
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
-import { getMarketItemById } from '@src/api/marketplace.api';
+import { getAuctionItemById, getMarketItemById } from '@src/api/marketplace.api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MarketItemStatus } from '@src/constants';
 import Description from './Description';
 import Recommendation from './Recommendation';
 
-export default function MarketItemDetails() {
+export default function AuctionItemDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ export default function MarketItemDetails() {
 
   const fetchMarketItems = async () => {
     try {
-      const { data } = await getMarketItemById(id, {
+      const { data } = await getAuctionItemById(id, {
         status: MarketItemStatus.OPENING,
       });
       setMarketItem(data);

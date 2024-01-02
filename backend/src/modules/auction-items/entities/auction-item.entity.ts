@@ -9,7 +9,7 @@ import {
 import { AuctionItemStatus } from '../enums/auction-item.enum';
 
 @Index(['id', 'owner'])
-@Entity('market_items')
+@Entity('auction_items')
 export class AuctionItem {
   @PrimaryGeneratedColumn()
   id: number;

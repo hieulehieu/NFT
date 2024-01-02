@@ -53,19 +53,19 @@ export class CrawlsSchedule implements OnModuleInit {
       `Crawl events from block ${crawlLatestBlock + 1} to block ${toBlock}`,
     );
 
-    // await this.marketItemsService.handleEvents(
-    //   this.rpcProvider,
-    //   crawlLatestBlock,
-    //   toBlock,
-    // );
+    await this.marketItemsService.handleEvents(
+      this.rpcProvider,
+      crawlLatestBlock,
+      toBlock,
+    );
 
-    // await this.auctionItemsService.handleEvents(
-    //   this.rpcProvider,
-    //   crawlLatestBlock,
-    //   toBlock,
-    // );
+    await this.auctionItemsService.handleEvents(
+      this.rpcProvider,
+      crawlLatestBlock,
+      toBlock,
+    );
 
-    // await this.crawl.setCrawlLatestBlock(toBlock);
+    await this.crawl.setCrawlLatestBlock(toBlock);
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)

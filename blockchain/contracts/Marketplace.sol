@@ -161,7 +161,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
             status: ItemStatus.OPENING
         });
         IERC721(_auctionItemParams.nft).transferFrom(_msgSender(), address(this), _auctionItemParams.tokenId);
-        emit ListedAuctionItem(itemIds.current(), _auctionItemParams);
+        emit ListedAuctionItem(auctionItemIds.current(), _auctionItemParams);
     }
 
     function bidItem(uint256 _itemId) external payable validAuctionItem(_itemId) nonReentrant {

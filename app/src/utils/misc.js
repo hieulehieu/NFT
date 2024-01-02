@@ -71,6 +71,14 @@ export const isMarketItemInSale = (marketItem) => {
   return false;
 };
 
+export const isAuctionItemInSale = (marketItem) => {
+  if (marketItem.timeStart) {
+    const currentTime = new Date().getTime() / 1000;
+    return Number(marketItem.timeStart) <= currentTime && currentTime <= marketItem.timeEnd;
+  }
+  return false;
+};
+
 export const calculateDiffTime = (from, to) => {
   const date1 = moment(from);
   const date2 = moment(to);

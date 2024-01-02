@@ -21,6 +21,7 @@ export class AuctionItemsService {
   ) {}
 
   async create(createAuctionItemDto: CreateAuctionItemDto) {
+    console.log('createAuctionItemDto', createAuctionItemDto);
     return this.auctionItemsRepository.save(createAuctionItemDto);
   }
 
@@ -81,6 +82,7 @@ export class AuctionItemsService {
               itemId,
               auctionItem: { nft, tokenId, initPrice, timeStart, timeEnd },
             } = event.args;
+
             const currentAuctionItem =
               await this.auctionItemsRepository.findOne({
                 where: {
@@ -130,7 +132,6 @@ export class AuctionItemsService {
             await this.auctionItemsRepository.update(
               { onChainId: itemId.toString() },
               {
-                status: AuctionItemStatus.SOLD,
                 highestBidder: {
                   bidder: bidder,
                   amount: ethers.formatUnits(amount, 18),
