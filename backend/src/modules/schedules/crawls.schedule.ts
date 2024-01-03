@@ -26,7 +26,7 @@ export class CrawlsSchedule implements OnModuleInit {
 
   @Cron(CronExpression.EVERY_10_SECONDS)
   async handleEvents() {
-    const onChainLatestBlock = await this.rpcProvider.getBlockNumber();
+    const onChainLatestBlock = (await this.rpcProvider.getBlockNumber()) - 5;
     if (!onChainLatestBlock) {
       return;
     }
@@ -55,8 +55,8 @@ export class CrawlsSchedule implements OnModuleInit {
 
     await this.marketItemsService.handleEvents(
       this.rpcProvider,
-      crawlLatestBlock,
-      toBlock,
+      44332504,
+      44332506,
     );
 
     await this.auctionItemsService.handleEvents(
@@ -69,6 +69,5 @@ export class CrawlsSchedule implements OnModuleInit {
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
-  async depositToLendingPoolTreasury() {
-  }
+  async depositToLendingPoolTreasury() {}
 }

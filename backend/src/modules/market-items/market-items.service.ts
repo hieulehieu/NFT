@@ -69,6 +69,8 @@ export class MarketItemsService {
       // Fetch events data
       const events = await marketplaceContract.queryFilter('*', from, to);
 
+      console.log(from, to, this.configService.get<string>('MARKETPLACE_ADDRESS'));
+
       for (let i = 0; i < events.length; i++) {
         const event: any = events[i];
         if (!event) continue;

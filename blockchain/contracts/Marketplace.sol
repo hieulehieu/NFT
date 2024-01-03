@@ -200,7 +200,7 @@ contract Marketplace is Permission, ReentrancyGuard, IERC721Receiver, IMarketpla
         auctionItems[_itemId].status = ItemStatus.CLOSED;
 
         IERC721(auctionItems[_itemId].nft).transferFrom(address(this), _msgSender(), auctionItems[_itemId].tokenId);
-        emit ClosedItem(auctionItems[_itemId].itemId);
+        emit ClosedAuctionItem(auctionItems[_itemId].itemId);
     }
 
     function setTreasury(address _treasury) external onlyOwner {

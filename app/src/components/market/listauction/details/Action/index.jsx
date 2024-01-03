@@ -72,6 +72,22 @@ export default function Action({ marketItem }) {
     }
   };
 
+  const handleCancelAuction = async () => {
+    try {
+      setCommitLoading(true);
+      const tx = await marketplaceContractWrite('closeAuctionItem', [marketItem.onChainId]);
+
+      await tx.wait();
+      toast.success('Close auction successfully');
+      setCommitLoading(false);
+    } catch (error) {
+      console.log(error);
+      const txError = parseMetamaskError(error);
+      toast.error(txError.context);
+      setCommitLoading(false);
+    }
+  };
+
   useEffect(() => {
     getBNBPrice().then(setBNBPrice);
 
@@ -137,6 +153,12 @@ export default function Action({ marketItem }) {
             <button onClick={handleDistributeAuctionItem}>
               <Icon icon="icon-park-outline:buy" fontSize={24} />
               <span>Distribute auction item to bidder</span>{' '}
+            </button>
+          )}
+          {!marketItem.highestBidder && (
+            <button onClick={handleCancelAuction}>
+              <Icon icon="icon-park-outline:buy" fontSize={24} />
+              <span>Cancel auction</span>{' '}
             </button>
           )}
         </div>

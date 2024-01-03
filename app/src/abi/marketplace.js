@@ -76,7 +76,7 @@ export const MARKETPLACE_ABI = [
         type: 'uint256',
       },
     ],
-    name: 'DistrubutedAuctionItem',
+    name: 'DistributedAuctionItem',
     type: 'event',
   },
   {
